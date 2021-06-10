@@ -57,12 +57,12 @@ stages {
 }
      stage('Artifact upload') {
       steps {
-     nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
+     nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'Releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'gameoflife-web/target/gameoflife.war']], mavenCoordinate: [artifactId: 'gameoflife', groupId: 'com.wakaleo.gameoflife', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
     stage('Deploy War') {
       steps {
-          //deploy adapters: [tomcat8(credentialsId: 'tomcat-cred', path: '', url: 'http://18.220.134.203:8080/')], contextPath: null, war: '**/*.war'
+          //deploy adapters: [tomcat8(credentialsId: 'tomcat-cred', path: '', url: 'http://http://13.59.10.31/:8080/')], contextPath: null, war: '**/*.war'
           sh label: '', script: 'ansible-playbook deploy.yml'
       }
  }
